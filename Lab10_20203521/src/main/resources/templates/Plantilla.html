@@ -90,7 +90,9 @@
                             <label class="form-label">3X3, 4X4, 5X5, ...</label>
                             <input class="form-control" type="text" placeholder="Ingresa la Cantidad de Particiones del Tablero" id="particiones" name="particiones">
                         </div>
+                        <div th:if="${codigoError1 != null}" th:text="${codigoError1}" style="color: red"></div>
                     </div>
+                    <div th:if="${codigoError1 != null}" th:text="${codigoError1}" style="color: red"></div>
                 </div>
                 <div style="display: inline-block; width: 20px;"></div>
                 <div class="text-center">

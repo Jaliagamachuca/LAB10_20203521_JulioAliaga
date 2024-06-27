@@ -45,7 +45,9 @@ public class SuperadminController {
                                           Model model) {
 
         System.out.println(particiones);
-
+        if (particiones == null){
+            model.addAttribute("codigoError1", "No debe estar vacío, debes escribir una particion.");
+        }
         Optional<Imagen> optImagen = imagenRepository.findById(1);
 
         Imagen imagen = optImagen.get();
