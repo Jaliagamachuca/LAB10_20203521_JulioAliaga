@@ -30,14 +30,21 @@ public class SuperadminController {
 
     }
     @GetMapping("")
-    public String Plantilla() {
+    public String Plantilla(Model model) {
+        Optional<Imagen> optImagen = imagenRepository.findById(1);
+        Imagen imagen = optImagen.get();
+        byte[] fotoBytes1 = imagen.getImage();
+        String fotoBase64 = Base64.getEncoder().encodeToString(fotoBytes1);
+        model.addAttribute("fotoBase64", fotoBase64);
 
         return "Plantilla";
     }
 
-    @PostMapping("/Guardar_Medicamento")
-    public String guardarNuevoMedicamento(@RequestParam("foto1") Part foto1,
+    @PostMapping("/Guardar")
+    public String guardarNuevoMedicamento(@RequestParam("foto1") Part foto1,@RequestParam("particiones") String particiones,
                                           Model model) {
+
+        System.out.println(particiones);
 
         Optional<Imagen> optImagen = imagenRepository.findById(1);
 
