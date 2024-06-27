@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <title>Pildo Pharm</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <link th:href="@{/css/stylesSide.css}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyCSkZALDDeauhgE9WHeS52ssPOo5xRLZoY&libraries=places"></script>
+    <style>
+        /* Estilos personalizados para los botones */
+        .boton_barbaro {
+          color: white;
+          background-color: red;
+          border-color: red;
+          margin-top: 16px;
+          margin-bottom: 16px;
+        }
+
+        .boton_barbaro:hover {
+          background-color: #990000;
+          border-color: #990000;
+        }
+
+        .botoncito_gozu {
+          color: white;
+          background-color: black;
+          border-color: black;
+          margin-top: 32px;
+        }
+
+        .botoncito_gozu:hover {
+          background-color: #333;
+          border-color: #333;
+        }
+
+        .boton-primario {
+          background-color: #2bd831;
+          border-color: #2bd831;
+        }
+
+        .boton-primario:hover {
+          background-color: rgb(19, 164, 24);
+          border-color: rgb(19, 164, 24);
+        }
+      </style>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="navbar navbar-expand-lg fondo" style=" background-color: #0b636fc9;">
+      <div class="container px-4 px-lg-5">
+          <a class="navbar-brand" href="#" style="color: white; font-size: x-large; margin-bottom: 3px;"><img th:src="@{img/logo.png}" alt="Logo" width="50vw" height="50vh">GTICS F</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    </div>
+    </nav>
+    <div class="container-xxl position-relative bg-white d-flex p-0" style="width: 80%;">
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <form id="medicamentoForm" method="POST" enctype="multipart/form-data" th:action="@{'/Guardar_Medicamento'}">
+                <h2 class="mb-12">Nueva Imagen</h2>
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h4><p style="text-align:center">Imagen</p></h4>
+                            <div class="container">
+                                <!-- Formulario de carga de imagen -->
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Selecciona una imagen para cargar:</label>
+                                    <input class="form-control" type="file" id="formFile" name="foto1" accept="image/*">
+                                    <div id="error-message" style="color: red; margin-top: 10px;"></div>
+                                    <div class="bg-light rounded h-100 p-4">
+                                        <h4><p style="text-align:center"><img th:src="'data:image/png;base64,' + ${fotoBase64}" alt="..." style="width: 300px; height: 300px;"/></p></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 20px;"></div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary boton-primario">REGISTRAR</button>
+                </div>
+                <div style="display: inline-block; width: 20px;"></div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('medicamentoForm').addEventListener('submit', function(event) {
+                const fileInput = document.getElementById('formFile');
+                const file = fileInput.files[0];
+                const maxSizeInBytes = 1024 * 1024; // 1 MB
+                const errorMessageElement = document.getElementById('error-message');
+                let isValid = true;
+
+                errorMessageElement.textContent = '';
+
+                if (!file) {
+                    errorMessageElement.textContent = 'Debe subir una imagen.';
+                    isValid = false;
+                } else {
+                    if (!file.type.startsWith('image/')) {
+                        errorMessageElement.textContent = 'El archivo seleccionado no es una imagen.';
+                        fileInput.value = ''; // Limpiar el campo de archivo
+                        isValid = false;
+                    } else if (file.size > maxSizeInBytes) {
+                        errorMessageElement.textContent = 'La imagen no debe superar 1 MB.';
+                        fileInput.value = ''; // Limpiar el campo de archivo
+                        isValid = false;
+                    }
+                }
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevenir el envío del formulario si la validación falla
+                }
+            });
+        </script><!-- Content End -->
+    </div>
+
+    <!-- TRABAJAR AQUI -->
+
+    <!-- ************* -->
+    <footer style="background-color: rgba(11, 99, 111, 0.79); width: 100%;">
+        <div class="mx-auto p-2" style="display: flex; align-items: center; justify-content: center;">
+            <div style="font-family: Arial,5px; margin-left: 10px; color: white;">
+                <h7>Derechos de autor Pildo Pharmacy S.A.</h7>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+</body>
+</html>
